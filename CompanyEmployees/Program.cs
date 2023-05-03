@@ -22,8 +22,10 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-
+builder.Services.AddControllers(config => {
+    config.RespectBrowserAcceptHeader = true;
+}).AddXmlDataContractSerializerFormatters()
+.AddApplicationPart(typeof(CompanyEmployees.Presentation.AssemblyReference).Assembly);
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();
